@@ -1,23 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getGlobalColor } from '../chui-config/color'
+import { makeColorStyle } from '../chui-config/color'
 
 const TextArea = ({
-  background, foreground, ...rest
+  backColor, foreColor, ...rest
 }) => {
-  const { colorPlate, defaultFore, defaultBack } = getGlobalColor()
-  const editStyle = {
-    backgroundColor: colorPlate[background || defaultBack],
-    color: colorPlate[foreground || defaultFore]
-  }
+  const editStyle = { ...makeColorStyle(foreColor, backColor) }
 
-  return <textarea className="chui-line-edit" style={editStyle} {...rest} />
+  return <textarea spellCheck={false} className="chui-line-edit" style={editStyle} {...rest} />
 }
 
 TextArea.propTypes = {
-  background: PropTypes.string,
-  foreground: PropTypes.string
+  backColor: PropTypes.string,
+  foreColor: PropTypes.string
 }
 
 export default TextArea

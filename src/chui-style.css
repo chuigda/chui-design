@@ -10,15 +10,23 @@
 }
 
 .chui-cursor-busy {
-    cursor: url("./chui-res/busy.cur"), wait;
+    cursor: url("./chui-res/busy.cur") 9 11, wait;
 }
 
 .chui-cursor-help {
     cursor: url("./chui-res/help.cur"), help;
 }
 
-.chui-button {
+.chui-busy-overlay {
+    opacity: 0.5;
+}
+
+.chui-button-div {
+    display: inline;
     outline: 1px solid;
+}
+
+.chui-button {
     border: 1px dotted;
     box-sizing: border-box;
 }
@@ -45,3 +53,14 @@
 .chui-line-edit:focus {
     border: 1px solid;
 }
+
+.chui-table {
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+.chui-table td { padding: 2px }
+.chui-table thead { border-bottom: 2px solid; }
+.chui-table td + td { border-left: 1px solid; }
+.chui-table th + th { border-left: 1px solid; }
+.chui-table tr + tr { border-top: 1px solid; }

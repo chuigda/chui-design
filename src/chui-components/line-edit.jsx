@@ -1,16 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { getGlobalColor } from '../chui-config/color'
+import { makeColorStyle } from '../chui-config/color'
 
 const LineEdit = ({
-  background, foreground, password, ...rest
+  backColor, foreColor, password, ...rest
 }) => {
-  const { colorPlate, defaultFore, defaultBack } = getGlobalColor()
-  const editStyle = {
-    backgroundColor: colorPlate[background || defaultBack],
-    color: colorPlate[foreground || defaultFore]
-  }
+  const editStyle = { ...makeColorStyle(foreColor, backColor) }
 
   return (
     <input className="chui-line-edit"
@@ -21,8 +17,8 @@ const LineEdit = ({
 }
 
 LineEdit.propTypes = {
-  background: PropTypes.string,
-  foreground: PropTypes.string,
+  backColor: PropTypes.string,
+  foreColor: PropTypes.string,
   password: PropTypes.any
 }
 

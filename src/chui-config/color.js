@@ -42,3 +42,11 @@ export const setDefaultForeground = fore => {
 export const setDefaultBackground = back => {
   globalColor.defaultBack = back
 }
+
+export const makeColorStyle = (fore, back) => {
+  const { colorPlate, defaultFore, defaultBack } = getGlobalColor()
+  return {
+    color: colorPlate[fore || defaultFore] || 'rgb(255, 255, 255)',
+    backgroundColor: colorPlate[back || defaultBack] || 'rgb(0, 0, 0)'
+  }
+}
