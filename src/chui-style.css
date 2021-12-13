@@ -5,12 +5,19 @@
 
 * {
     font-family: vga, monospace;
-    font-size: 18px;
+    font-size: 16px;
+    cursor: url("./chui-res/point.cur"), pointer;
+}
+
+.chui-cursor-busy {
+    cursor: url("./chui-res/busy.cur"), wait;
+}
+
+.chui-cursor-help {
+    cursor: url("./chui-res/help.cur"), help;
 }
 
 .chui-button {
-    display: inline-block;
-    padding: 2px;
     outline: 1px solid;
     border: 1px dotted;
     box-sizing: border-box;
@@ -23,4 +30,18 @@
 .chui-button:active {
     border: 1px solid;
     box-shadow: 0 0 0 1px inset;
+}
+
+.chui-line-edit {
+    outline: 1px solid;
+    border: 1px solid transparent;
+    cursor: url("./chui-res/text.cur"), text;
+}
+
+.chui-line-edit:hover {
+    border: 1px solid;
+}
+
+.chui-line-edit:focus {
+    border: 1px solid;
 }

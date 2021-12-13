@@ -13,15 +13,18 @@ const ANSIColorPlate = {
   brightMagenta: 'rgb(255, 0, 255)',
   cyan: 'rgb(0, 187, 187)',
   brightCyan: 'rgb(0, 255, 255)',
-  white: 'rgb(255, 255, 255)'
+  white: 'rgb(255, 255, 255)',
+
+  // not standard ANSI color
+  orange: 'rgb(255, 127, 0)'
 }
 
-export const ColorPlates = {
+export const BuiltinColorPlates = {
   ansi: ANSIColorPlate
 }
 
 const globalColor = {
-  colorPlate: ColorPlates.ansi,
+  colorPlate: BuiltinColorPlates.ansi,
   defaultFore: 'black',
   defaultBack: 'white'
 }
