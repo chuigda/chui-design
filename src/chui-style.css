@@ -10,7 +10,7 @@
 }
 
 .chui-cursor-move {
-    cursor: url("./chui-res/move.cur") 9 11, move;
+    cursor: url("./chui-res/move.cur") 11 11, move;
 }
 
 .chui-cursor-busy {
