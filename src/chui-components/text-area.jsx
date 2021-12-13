@@ -8,7 +8,7 @@ const TextArea = ({
 }) => {
   const editStyle = { ...makeColorStyle(foreColor, backColor) }
 
-  return <textarea spellCheck={false} className="chui-line-edit" style={editStyle} {...rest} />
+  return <textarea spellCheck={false} className="chui-text-area" style={editStyle} {...rest} />
 }
 
 TextArea.propTypes = {

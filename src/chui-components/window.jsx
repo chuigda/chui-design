@@ -4,28 +4,29 @@ import PropTypes from 'prop-types'
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
 
-const makeTitleBar = (title, backColor, foreColor, hWnd, setPosition, windowApi) => {
+const makeTitleBar = (title, backColor, foreColor, hWnd, setPosition) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
-
-  const titleBarPad = {
-    background: `repeating-linear-gradient(${color}, ${color} 1px, `
-      + `${backgroundColor} 1px, ${backgroundColor} 2px)`,
-    flexGrow: 1,
-    margin: '0.2em'
-  }
 
   const titleBarStyle = {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 'calc(1em + 7px)',
-    borderBottom: `1px solid ${color}`
+    borderBottom: `1px solid ${color}`,
+    background: color,
+  }
+
+  const titleStyle = {
+    color: backgroundColor,
+    userSelect: 'none',
+    width: '100%',
+    marginLeft: '1em'
   }
 
   return (
-    <div className="chui-cursor-move" style={titleBarStyle}>
-      <div className="chui-cursor-move" style={titleBarPad}/>
-      <div className="chui-cursor-move" style={{ color, userSelect: 'none' }}>{title}</div>
-      <div className="chui-cursor-move" style={titleBarPad}/>
+    <div style={titleBarStyle}>
+      <div className="chui-cursor-move" style={titleStyle}>{title}</div>
       <Button foreColor={foreColor} backColor={backColor}>_</Button>
       <Button foreColor={foreColor} backColor={backColor} >X</Button>
     </div>
@@ -34,8 +35,9 @@ const makeTitleBar = (title, backColor, foreColor, hWnd, setPosition, windowApi)
 
 const Window = ({
   hWnd,
-  initPosition,
-  windowApi,
+  pos,
+  zIndex,
+  visible,
   backColor,
   foreColor,
   busy,
@@ -44,19 +46,21 @@ const Window = ({
   style,
   ...rest
 }) => {
-  const [position, setPosition] = useState(initPosition || { x: '200px', y: '200px' })
+  const [position, setPosition] = useState(pos || { x: '100px', y: '100px' })
 
   const windowStyle = {
+    border: '1px solid',
     position: 'fixed',
     left: position.x,
     top: position.y,
+    zIndex,
     ...style,
     ...makeColorStyle(foreColor, backColor)
   }
 
   return (
-    <div className="chui-window" style={windowStyle} {...rest}>
-      { makeTitleBar(title, backColor, foreColor, hWnd, setPosition, windowApi) }
+    <div key={`chui-window-${hWnd}`} className="chui-window" style={windowStyle} {...rest}>
+      { makeTitleBar(title, backColor, foreColor, hWnd, setPosition) }
       <div style={{ padding: '0.5em' }}>
         { children }
       </div>
@@ -65,9 +69,11 @@ const Window = ({
 }
 
 Window.propTypes = {
-  hWnd: PropTypes.number.isRequired,
-  initPosition: PropTypes.object,
+  hWnd: PropTypes.string.isRequired,
+  pos: PropTypes.object,
   windowApi: PropTypes.object,
+  zIndex: PropTypes.number,
+  visible: PropTypes.bool,
   backColor: PropTypes.string,
   foreColor: PropTypes.string,
   busy: PropTypes.bool,

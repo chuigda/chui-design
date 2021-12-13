@@ -1,45 +1,26 @@
 import React from 'react'
 
-import Button from './chui-components/button.jsx'
-import LineEdit from './chui-components/line-edit.jsx'
-import TextArea from './chui-components/text-area.jsx'
-import Table from './chui-components/table.jsx'
 import './chui-style.css'
 import Window from './chui-components/window.jsx'
+import LineEdit from './chui-components/line-edit.jsx'
+import Button from './chui-components/button.jsx'
+import Spacer from './chui-components/spacer.jsx'
+import TextArea from './chui-components/text-area.jsx'
 
 const App = () => (
-  <div className="App">
-    <Window hWnd={0}
-            title="title"
-            foreColor="red"
-            style={{ width: '500px', minHeight: '200px' }}
-            initPosition={{ x: '114px', y: '200px' }}
-    >
-      <LineEdit placeholder="Bu, bu burn it down!"/>&nbsp;
-      <Button foreColor="blue">Push</Button>&nbsp;
-      <Button foreColor="red" help>The</Button>&nbsp;
-      <Button busy>Button</Button>
-      <br/>
-      <br/>
-      <TextArea foreColor="orange"/>
-      <br/>
-      <br/>
-      <Table title={['Feature', 'chui-design', 'google mui', 'alibaba antd']}
-             rows={[
-               ['Small', '🙂', '🙃', '😔'],
-               ['Ancient', '🤤', '😥', '😵'],
-               ['Designed by great Chuigda', '🤣', '😭', '💀']
-             ]}
-      />
-      <br/>
-      <Table title={['Feature', 'chui-design', 'google mui', 'alibaba antd']}
-             rows={[
-               ['Small', '🙂', '🙃', '😔'],
-               ['Ancient', '🤤', '😥', '😵'],
-               ['Designed by great Chuigda', '🤣', '😭', '💀']
-             ]}
-             busy
-      />
+  <div className="app">
+    <Window hWnd="mainWindow" title="Search box" style={{ width: '600px' }}>
+      <div style={{ display: 'flex', marginBottom: '0.5em' }}>
+        <LineEdit placeholder="type here" style={{ width: '100%' }}/>
+        <Spacer/>
+        <Button>Search</Button>
+        <Spacer/>
+        <Button foreColor="red">Danger!</Button>
+      </div>
+      <TextArea style={{
+        width: '100%',
+        height: '300px'
+      }} placeholder="bullshit!"/>
     </Window>
   </div>
 )
