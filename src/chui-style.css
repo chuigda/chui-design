@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'vga';
+    src: url("./chui-res/vga.ttf");
+}
+
+* {
+    font-family: vga, monospace;
+    font-size: 18px;
+}
+
+.chui-button {
+    display: inline-block;
+    padding: 2px;
+    outline: 1px solid;
+    border: 1px dotted;
+    box-sizing: border-box;
+}
+
+.chui-button:hover {
+    border: 1px solid;
+}
+
+.chui-button:active {
+    border: 1px solid;
+    box-shadow: 0 0 0 1px inset;
+}
