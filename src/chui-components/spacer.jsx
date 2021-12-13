@@ -1,12 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Spacer = ({ count }) => (
-  <div style={{ display: 'inline-block', userSelect: 'none', width: `${(count || 1) / 2}em` }} />
+const HSpacer = ({ count }) => (
+  <div style={{
+    display: 'inline-block',
+    userSelect: 'none',
+    width: `${(count || 1) / 2}em`
+  }} />
 )
 
-Spacer.propTypes = {
+HSpacer.propTypes = {
   count: PropTypes.number
 }
 
-export default Spacer
+const VSpacer = ({ count }) => (
+  <div style={{
+    display: 'block',
+    userSelect: 'none',
+    height: `${(count || 1) / 2}em`
+  }}/>
+)
+
+VSpacer.propTypes = {
+  count: PropTypes.number
+}
+
+export { HSpacer, VSpacer }
