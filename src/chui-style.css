@@ -9,6 +9,10 @@
     cursor: url("./chui-res/point.cur"), pointer;
 }
 
+.chui-cursor-move {
+    cursor: url("./chui-res/move.cur") 9 11, move;
+}
+
 .chui-cursor-busy {
     cursor: url("./chui-res/busy.cur") 9 11, wait;
 }
@@ -64,3 +68,7 @@
 .chui-table td + td { border-left: 1px solid; }
 .chui-table th + th { border-left: 1px solid; }
 .chui-table tr + tr { border-top: 1px solid; }
+
+.chui-window {
+    border: 1px solid;
+}

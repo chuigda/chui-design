@@ -5,7 +5,9 @@ const MDIArea = ({
   windows,
   ...rest
 }) => (
-  <div {...rest}>{windows}</div>
+  <div {...rest}>
+    { Object.entries(windows).filter(window => window.visible) }
+  </div>
 )
 
 MDIArea.propTypes = {
