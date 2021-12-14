@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { makeColorStyle } from '../chui-config/color'
 
 const Table = ({
-  key, backColor, foreColor, busy, title, rows, ...rest
+  key, backColor, foreColor, busy, title, rows, style, ...rest
 }) => {
-  const tableStyle = { ...makeColorStyle(foreColor, backColor) }
+  const tableStyle = { ...style, ...makeColorStyle(foreColor, backColor) }
   const classes = 'chui-table'
     + `${busy ? ' chui-cursor-busy' : ''}`
 
@@ -51,7 +51,8 @@ Table.propTypes = {
   foreColor: PropTypes.string,
   busy: PropTypes.any,
   title: PropTypes.arrayOf(PropTypes.string),
-  rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string))
+  rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
+  style: PropTypes.object
 }
 
 export default Table

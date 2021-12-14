@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { makeColorStyle } from '../chui-config/color'
 
 const Button = ({
-  backColor, foreColor, help, busy, ...rest
+  backColor, foreColor, help, busy, style, ...rest
 }) => {
-  const buttonStyle = { ...makeColorStyle(foreColor, backColor) }
+  const buttonStyle = { ...style, ...makeColorStyle(foreColor, backColor) }
   const classes = 'chui-button'
     + `${help ? ' chui-cursor-help' : ''}`
     + `${busy ? ' chui-cursor-busy chui-busy-overlay' : ''}`
@@ -21,6 +21,7 @@ const Button = ({
 Button.propTypes = {
   backColor: PropTypes.string,
   foreColor: PropTypes.string,
+  style: PropTypes.object,
   help: PropTypes.any,
   busy: PropTypes.any
 }

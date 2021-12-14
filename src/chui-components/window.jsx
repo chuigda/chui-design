@@ -30,18 +30,26 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   const titleRef = useRef()
   const relXY = useRef([0, 0])
 
-  const onDragStart = event => {
+  const onMouseDown = event => {
     const { pageX, pageY } = event
     const { left, top } = titleRef.current.getBoundingClientRect()
-    relXY.current = [pageX - left, pageY - top]
+    relXY.current = [pageX - left + 4, pageY - top + 4]
+  }
 
+  const onDragStart = event => {
     event.dataTransfer.setDragImage(titleRef.current, -99999, -99999)
   }
 
   const onDrag = event => {
     const { pageX, pageY } = event
-    const x = pageX - relXY.current[0]
-    const y = pageY - relXY.current[1]
+    let x = pageX - relXY.current[0]
+    let y = pageY - relXY.current[1]
+    if (x < 0) {
+      x = 0
+    }
+    if (y < 0) {
+      y = 0
+    }
     setPosition({ x, y })
   }
 
@@ -49,14 +57,15 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
     <div style={titleBarStyle}>
       <div ref={titleRef}
            draggable
+           onMouseDown={onMouseDown}
            onDragStart={onDragStart}
            onDrag={onDrag}
            className="chui-cursor-move"
            style={titleStyle}>
         {title}
       </div>
-      <Button foreColor={foreColor} backColor={backColor}>_</Button>
-      <Button foreColor={foreColor} backColor={backColor} >X</Button>
+      <Button foreColor={foreColor} backColor={backColor} style={{ height: '100%' }}>_</Button>
+      <Button foreColor={foreColor} backColor={backColor} style={{ height: '100%' }}>X</Button>
     </div>
   )
 }
@@ -68,12 +77,13 @@ const Window = ({
   visible,
   backColor,
   foreColor,
-  busy,
   title,
   children,
   style,
   ...rest
 }) => {
+  const classes = 'chui-window'
+
   const [position, setPosition] = useState(pos || { x: '100px', y: '100px' })
 
   const windowStyle = {
@@ -88,7 +98,7 @@ const Window = ({
 
   return (
     <div key={`chui-window-${hWnd}`}
-         className="chui-window"
+         className={classes}
          style={windowStyle}
          {...rest}>
       { makeTitleBar(title, backColor, foreColor, setPosition, hWnd) }
@@ -107,7 +117,6 @@ Window.propTypes = {
   visible: PropTypes.bool,
   backColor: PropTypes.string,
   foreColor: PropTypes.string,
-  busy: PropTypes.bool,
   title: PropTypes.string,
   children: PropTypes.any,
   style: PropTypes.object
