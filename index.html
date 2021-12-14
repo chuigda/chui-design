@@ -10,10 +10,29 @@
     />
     <link rel="manifest" href="manifest.json" />
     <title>Chui-design playground</title>
+    <script type="module" crossorigin src="/chui-design/assets/index.ba26898d.js"></script>
+    <link rel="modulepreload" href="/chui-design/assets/vendor.29d3527a.js">
+    <link rel="stylesheet" href="/chui-design/assets/index.7c0b024b.css">
   </head>
-  <body style="height: 100vh; width: 100vw; margin: 0; display: flex; align-items: center; justify-content: center">
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #root {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" style="width: 100%; height: 100%"></div>
-    <script type="module" src="/src/index.jsx"></script>
+    <div id="root"></div>
+    
   </body>
 </html>
