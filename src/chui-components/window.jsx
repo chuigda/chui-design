@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
+import { WindowManagerContext } from './window-mgr.jsx'
 
 const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
@@ -35,6 +36,8 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   const titleRef = useRef()
   const relXY = useRef([0, 0])
 
+  const windowManagerContext = useContext(WindowManagerContext)
+
   const onMouseDown = event => {
     const { pageX, pageY } = event
     const { left, top } = titleRef.current.getBoundingClientRect()
@@ -58,6 +61,14 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
     setPosition({ x, y })
   }
 
+  const closeWindow = () => {
+    if (!windowManagerContext) {
+      return
+    }
+    const { setWindowList } = windowManagerContext
+    setWindowList(windowList => windowList.filter(window => window.props.hWnd !== hWnd))
+  }
+
   return (
     <div style={titleBarStyle}>
       <div ref={titleRef}
@@ -69,8 +80,18 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
            style={titleStyle}>
         {title}
       </div>
-      <Button foreColor={foreColor} backColor={backColor} style={buttonStyle}>_</Button>
-      <Button foreColor={foreColor} backColor={backColor} style={buttonStyle}>X</Button>
+      <Button foreColor={foreColor}
+              backColor={backColor}
+              style={buttonStyle}
+              onClick={closeWindow}>
+        _
+      </Button>
+      <Button foreColor={foreColor}
+              backColor={backColor}
+              style={buttonStyle}
+              onClick={closeWindow}>
+        X
+      </Button>
     </div>
   )
 }
@@ -101,10 +122,28 @@ const Window = ({
     ...makeColorStyle(foreColor, backColor)
   }
 
+  const windowManagerContext = useContext(WindowManagerContext)
+  const activateWindow = () => {
+    if (!windowManagerContext) {
+      return
+    }
+    const { windowList, setWindowList } = windowManagerContext
+    if (windowList[windowList.length - 1].props.hWnd === hWnd) {
+      return
+    }
+
+    const thisWindow = windowList.find(window => window.props.hWnd === hWnd)
+    setWindowList(
+      windows => windows.filter(window => window.props.hWnd !== hWnd)
+        .concat([thisWindow])
+    )
+  }
+
   return (
     <div key={`chui-window-${hWnd}`}
          className={classes}
          style={windowStyle}
+         onClick={activateWindow}
          {...rest}>
       { makeTitleBar(title, backColor, foreColor, setPosition, hWnd) }
       <div style={{ padding: '0.5em' }}>
