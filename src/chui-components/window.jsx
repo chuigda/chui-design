@@ -27,6 +27,11 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
     justifyContent: 'center'
   }
 
+  const buttonStyle = {
+    height: '100%',
+    border: 'none'
+  }
+
   const titleRef = useRef()
   const relXY = useRef([0, 0])
 
@@ -64,8 +69,8 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
            style={titleStyle}>
         {title}
       </div>
-      <Button foreColor={foreColor} backColor={backColor} style={{ height: '100%' }}>_</Button>
-      <Button foreColor={foreColor} backColor={backColor} style={{ height: '100%' }}>X</Button>
+      <Button foreColor={foreColor} backColor={backColor} style={buttonStyle}>_</Button>
+      <Button foreColor={foreColor} backColor={backColor} style={buttonStyle}>X</Button>
     </div>
   )
 }

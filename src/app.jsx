@@ -8,6 +8,8 @@ import { HSpacer, VSpacer } from './chui-components/spacer.jsx'
 import TextArea from './chui-components/text-area.jsx'
 import ScrollArea from './chui-components/scroll-area.jsx'
 
+import { getGlobalColor } from './chui-config/color'
+
 const allowDrop = event => {
   event.preventDefault()
   // eslint-disable-next-line no-param-reassign
@@ -17,7 +19,7 @@ const allowDrop = event => {
 const App = () => (
   <div className="app"
        onDragOver={allowDrop}
-       style={{ width: '1366px', height: '768px', border: '1px solid black' }}>
+       style={{ width: '100%', height: '100%', backgroundColor: getGlobalColor().colorPlate.cyan }}>
     <Window hWnd="readBlog"
             title="Read blog: 我太菜了 by Chuigda WhiteGive"
             style={{ width: '800px' }}
@@ -63,18 +65,23 @@ const App = () => (
         }}>
           <div style={{ width: '100%', userSelect: 'none' }}>
             Comment from <b>Lyzh</b>:<br/>
-            禁止卖弱，打死
+            打死，禁止卖弱
           </div>
           <hr/>
           <div style={{ width: '100%', userSelect: 'none' }}>
-            Comment from <b>Vera Ivanovna</b>:<br/>
+            Comment from <b>ice1000</b>:<br/>
             锤哥你又在卖弱哦，休息一下吧<br/>
             去看个 issue，合个 PR 好不好
           </div>
           <hr/>
           <div style={{ width: '100%', userSelect: 'none' }}>
             Comment from <b>ClearLove灬Star</b>:<br/>
-            哎呀，666 啊
+            你怕不是头 ju 哦
+          </div>
+          <hr/>
+          <div style={{ width: '100%', userSelect: 'none' }}>
+            Comment from <b>我是一只鲨鱼</b>:<br/>
+            沙雕
           </div>
           <hr/>
           <div style={{ width: '100%', userSelect: 'none' }}>
@@ -83,7 +90,11 @@ const App = () => (
           </div>
         </ScrollArea>
         <hr style={{ width: '100%' }}/>
-        <TextArea style={{ width: '100%', height: '120px' }} placeholder="your comment"/>
+        <TextArea style={{
+          width: '100%',
+          height: '120px',
+          overflowY: 'scroll'
+        }} placeholder="your comment"/>
         <VSpacer/>
         <div style={{
           display: 'flex',

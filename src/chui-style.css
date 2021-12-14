@@ -11,10 +11,13 @@
     -webkit-font-smoothing: none;
 }
 
+::selection {
+    background-color: rgb(0, 0, 187);
+    color: white;
+}
+
 span {
     cursor: url("./chui-res/text.cur"), text;
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
 }
 
 .chui-cursor-move {
