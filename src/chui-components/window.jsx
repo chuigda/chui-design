@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
 
-const makeTitleBar = (title, backColor, foreColor, hWnd, setPosition) => {
+const makeTitleBar = (title, backColor, foreColor, hWnd) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
 
   const titleBarStyle = {
@@ -58,9 +58,34 @@ const Window = ({
     ...makeColorStyle(foreColor, backColor)
   }
 
+  const windowRef = useRef()
+  let [x, y] = [0, 0]
+  let [relX, relY] = [0, 0]
+
+  const onDragStart = event => {
+    const { pageX, pageY } = event
+    const { left, top } = windowRef.current.getBoundingClientRect()
+    relX = pageX - left
+    relY = pageY - top
+  }
+
+  const onDragEnd = event => {
+    const { clientX, clientY } = event
+    x = clientX
+    y = clientY
+    setPosition({ x: x - relX, y: y - relY })
+  }
+
   return (
-    <div key={`chui-window-${hWnd}`} className="chui-window" style={windowStyle} {...rest}>
-      { makeTitleBar(title, backColor, foreColor, hWnd, setPosition) }
+    <div ref={windowRef}
+         draggable
+         onDragStart={onDragStart}
+         onDragEnd={onDragEnd}
+         key={`chui-window-${hWnd}`}
+         className="chui-window"
+         style={windowStyle}
+         {...rest}>
+      { makeTitleBar(title, backColor, foreColor, hWnd) }
       <div style={{ padding: '0.5em' }}>
         { children }
       </div>

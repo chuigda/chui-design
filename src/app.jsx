@@ -6,7 +6,7 @@ import LineEdit from './chui-components/line-edit.jsx'
 import Button from './chui-components/button.jsx'
 import { HSpacer, VSpacer } from './chui-components/spacer.jsx'
 import TextArea from './chui-components/text-area.jsx'
-import Table from './chui-components/table'
+import Table from './chui-components/table.jsx'
 
 const App = () => (
   <div className="app">
