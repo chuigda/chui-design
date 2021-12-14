@@ -59,28 +59,28 @@ const Window = ({
   }
 
   const windowRef = useRef()
-  let [x, y] = [0, 0]
-  let [relX, relY] = [0, 0]
+  const relXY = useRef([0, 0])
 
   const onDragStart = event => {
     const { pageX, pageY } = event
     const { left, top } = windowRef.current.getBoundingClientRect()
-    relX = pageX - left
-    relY = pageY - top
+    relXY.current = [pageX - left, pageY - top]
+
+    event.dataTransfer.setDragImage(windowRef.current, -99999, -99999)
   }
 
-  const onDragEnd = event => {
-    const { clientX, clientY } = event
-    x = clientX
-    y = clientY
-    setPosition({ x: x - relX, y: y - relY })
+  const onDrag = event => {
+    const { pageX, pageY } = event
+    const x = pageX - relXY.current[0]
+    const y = pageY - relXY.current[1]
+    setPosition({ x, y })
   }
 
   return (
     <div ref={windowRef}
          draggable
          onDragStart={onDragStart}
-         onDragEnd={onDragEnd}
+         onDrag={onDrag}
          key={`chui-window-${hWnd}`}
          className="chui-window"
          style={windowStyle}

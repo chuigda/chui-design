@@ -1,10 +1,11 @@
 /* eslint-disable */
+// noinspection ES6ConvertVarToLetConst,RegExpRedundantEscape
 
+// patch for Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=505521
 const setupMozillaHack = () => {
-  if(/Firefox\/\d+[\d\.]*/.test(navigator.userAgent)
+  if (/Firefox\/\d+[\d\.]*/.test(navigator.userAgent)
     && typeof window.DragEvent === 'function'
-    && typeof window.addEventListener === 'function') (function(){
-    // patch for Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=505521
+    && typeof window.addEventListener === 'function') (function() {
     var cx, cy, px, py, ox, oy, sx, sy, lx, ly;
     function update(e) {
       cx = e.clientX;
