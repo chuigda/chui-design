@@ -7,6 +7,14 @@
     font-family: vga, monospace;
     font-size: 16px;
     cursor: url("./chui-res/point.cur"), pointer;
+    font-smooth: never;
+    -webkit-font-smoothing: none;
+}
+
+span {
+    cursor: url("./chui-res/text.cur"), text;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
 }
 
 .chui-cursor-move {

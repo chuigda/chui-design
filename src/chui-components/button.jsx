@@ -6,7 +6,11 @@ import { makeColorStyle } from '../chui-config/color'
 const Button = ({
   backColor, foreColor, help, busy, style, ...rest
 }) => {
-  const buttonStyle = { ...style, ...makeColorStyle(foreColor, backColor) }
+  const buttonStyle = {
+    userSelect: 'none',
+    ...style,
+    ...makeColorStyle(foreColor, backColor)
+  }
   const classes = 'chui-button'
     + `${help ? ' chui-cursor-help' : ''}`
     + `${busy ? ' chui-cursor-busy chui-busy-overlay' : ''}`
