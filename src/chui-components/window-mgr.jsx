@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 
 export const WindowManagerContext = React.createContext(null)
 
-export const WindowManager = ({ initialWindows }) => {
-  const [windowList, setWindowList] = useState(initialWindows || [])
+export const WindowManager = ({ windowList, setWindowList }) => {
   const store = {
     windowList, setWindowList
   }
@@ -16,5 +15,6 @@ export const WindowManager = ({ initialWindows }) => {
 }
 
 WindowManager.propTypes = {
-  initialWindows: PropTypes.arrayOf(PropTypes.element)
+  windowList: PropTypes.arrayOf(PropTypes.element).isRequired,
+  setWindowList: PropTypes.func.isRequired
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import './chui-style.css'
 import Window from './chui-components/window.jsx'
@@ -120,12 +120,15 @@ const anotherWindow = (
   </Window>
 )
 
-const App = () => (
-  <div className="app"
-       onDragOver={allowDrop}
-       style={{ width: '100%', height: '100%', backgroundColor: getGlobalColor().colorPlate.cyan }}>
-    <WindowManager initialWindows={[blogWindow, anotherWindow]} />
-  </div>
-)
+const App = () => {
+  const [windowList, setWindowList] = useState([blogWindow, anotherWindow])
+  return (
+    <div className="app"
+         onDragOver={allowDrop}
+         style={{ width: '100%', height: '100%', backgroundColor: getGlobalColor().colorPlate.cyan }}>
+      <WindowManager windowList={windowList} setWindowList={setWindowList} />
+    </div>
+  )
+}
 
 export default App
