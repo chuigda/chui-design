@@ -8,9 +8,20 @@ import { HSpacer, VSpacer } from './chui-components/spacer.jsx'
 import TextArea from './chui-components/text-area.jsx'
 import Table from './chui-components/table.jsx'
 
+const allowDrop = event => {
+  event.preventDefault()
+  // eslint-disable-next-line no-param-reassign
+  event.dataTransfer.dropEffect = 'move'
+}
+
 const App = () => (
-  <div className="app">
-    <Window hWnd="mainWindow" title="Search box" style={{ width: '600px' }}>
+  <div className="app"
+       onDragOver={allowDrop}
+       style={{ width: '100%', height: '95vh', border: '1px solid black' }}>
+    <Window hWnd="mainWindow"
+            title="Search box"
+            style={{ width: '600px' }}
+            foreColor="blue">
       <div style={{ display: 'flex', marginBottom: '0.5em' }}>
         <LineEdit placeholder="type here" style={{ width: '100%' }}/>
         <HSpacer/>

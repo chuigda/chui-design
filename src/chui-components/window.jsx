@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
 
-const makeTitleBar = (title, backColor, foreColor, hWnd) => {
+const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
 
   const titleBarStyle = {
@@ -21,12 +21,40 @@ const makeTitleBar = (title, backColor, foreColor, hWnd) => {
     color: backgroundColor,
     userSelect: 'none',
     width: '100%',
-    marginLeft: '1em'
+    marginLeft: '1em',
+    display: 'flex',
+    alignContent: 'center',
+    justifyContent: 'center'
+  }
+
+  const titleRef = useRef()
+  const relXY = useRef([0, 0])
+
+  const onDragStart = event => {
+    const { pageX, pageY } = event
+    const { left, top } = titleRef.current.getBoundingClientRect()
+    relXY.current = [pageX - left, pageY - top]
+
+    event.dataTransfer.setDragImage(titleRef.current, -99999, -99999)
+  }
+
+  const onDrag = event => {
+    const { pageX, pageY } = event
+    const x = pageX - relXY.current[0]
+    const y = pageY - relXY.current[1]
+    setPosition({ x, y })
   }
 
   return (
     <div style={titleBarStyle}>
-      <div className="chui-cursor-move" style={titleStyle}>{title}</div>
+      <div ref={titleRef}
+           draggable
+           onDragStart={onDragStart}
+           onDrag={onDrag}
+           className="chui-cursor-move"
+           style={titleStyle}>
+        {title}
+      </div>
       <Button foreColor={foreColor} backColor={backColor}>_</Button>
       <Button foreColor={foreColor} backColor={backColor} >X</Button>
     </div>
@@ -58,34 +86,12 @@ const Window = ({
     ...makeColorStyle(foreColor, backColor)
   }
 
-  const windowRef = useRef()
-  const relXY = useRef([0, 0])
-
-  const onDragStart = event => {
-    const { pageX, pageY } = event
-    const { left, top } = windowRef.current.getBoundingClientRect()
-    relXY.current = [pageX - left, pageY - top]
-
-    event.dataTransfer.setDragImage(windowRef.current, -99999, -99999)
-  }
-
-  const onDrag = event => {
-    const { pageX, pageY } = event
-    const x = pageX - relXY.current[0]
-    const y = pageY - relXY.current[1]
-    setPosition({ x, y })
-  }
-
   return (
-    <div ref={windowRef}
-         draggable
-         onDragStart={onDragStart}
-         onDrag={onDrag}
-         key={`chui-window-${hWnd}`}
+    <div key={`chui-window-${hWnd}`}
          className="chui-window"
          style={windowStyle}
          {...rest}>
-      { makeTitleBar(title, backColor, foreColor, hWnd) }
+      { makeTitleBar(title, backColor, foreColor, setPosition, hWnd) }
       <div style={{ padding: '0.5em' }}>
         { children }
       </div>
