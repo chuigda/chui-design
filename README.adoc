@@ -3,6 +3,8 @@ author: Chuigda<icey@icey.tech>
 
 前世代前端组件库
 
+image::irrelevant/开幕雷击.png[开幕雷击]
+
 == 介绍
 
 锤哥的玩具级程序是一些小巧而简单的系统，数量少且功能简单，而且变动和并发很不频繁，不需要设计者与开发者能快速做出响应。同时这类玩具程序中有存在很多类似的页面以及组件，可以通过抽象得到一些不稳定且低复用性的内容。
@@ -26,6 +28,8 @@ author: Chuigda<icey@icey.tech>
 image::irrelevant/这不合理.png[这不合理]
 image::irrelevant/太坏了.png[太坏了]
 image::irrelevant/也许会很有趣.png[也许会很有趣]
+image::irrelevant/好配色方案.png[好配色方案]
+image::irrelevant/要配置文件.png[要配置文件]
 
 === 如何贡献
 我不建议您以任何形式贡献，因为总的来讲这 *只会浪费您的时间*。不过如果您觉得有严重的问题需要修正，或者您在“使用”过程中遇到了困难，欢迎来 link:https://github.com/chuigda/chui-design/issues[Issues页面] 撕逼。
