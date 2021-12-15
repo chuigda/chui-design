@@ -17,9 +17,19 @@ export const WindowManager = ({ children }) => {
   return (
     <WindowManagerContext.Provider value={store}>
       {
-        windowList.list
-          .filter(windowObject => windowObject.visible)
-          .map(windowObject => windowObject.vdom)
+        windowList.list.map(windowObject => (
+          <div key={`chui-window-${windowObject.hWnd}`}
+               style={{
+                 display: windowObject.visible ? undefined : 'none',
+                 width: '0',
+                 height: '0',
+                 position: 'absolute',
+                 left: '0',
+                 top: '0'
+               }}>
+            {windowObject.vdom}
+          </div>
+        ))
       }
       { children }
     </WindowManagerContext.Provider>
@@ -40,7 +50,7 @@ export const createWindow = (windowManagerContext, hWnd, children, restAttr) => 
       + `-${Math.round(Math.random() * 3399)}`
 
   const newWindow = (
-    <Window key={`chui-window-${actualHWnd}`} hWnd={actualHWnd} {...restAttr}>
+    <Window hWnd={actualHWnd} {...restAttr}>
       {children}
     </Window>
   )

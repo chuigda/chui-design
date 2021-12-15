@@ -11,7 +11,7 @@ import {
   setWindowVisibility
 } from './window-mgr.jsx'
 
-const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
+const makeTitleBar = (hWnd, title, backColor, foreColor, setPosition, maximized, setMaximized) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
 
   const titleBarStyle = {
@@ -45,7 +45,12 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   const windowManagerContext = useContext(WindowManagerContext)
 
   const onMouseDown = event => {
+    event.stopPropagation()
     activateWindow(windowManagerContext, hWnd)
+
+    if (maximized) {
+      return
+    }
 
     const { pageX, pageY } = event
     const { left, top } = titleRef.current.getBoundingClientRect()
@@ -53,10 +58,22 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   }
 
   const onDragStart = event => {
+    event.stopPropagation()
+    if (maximized) {
+      event.preventDefault()
+      return
+    }
+
     event.dataTransfer.setDragImage(titleRef.current, -99999, -99999)
   }
 
   const onDrag = event => {
+    event.stopPropagation()
+    if (maximized) {
+      event.preventDefault()
+      return
+    }
+
     const { pageX, pageY } = event
     let x = pageX - relXY.current[0]
     let y = pageY - relXY.current[1]
@@ -70,12 +87,18 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
   }
 
   const onHideWindow = event => {
+    event.stopPropagation()
     setWindowVisibility(windowManagerContext, hWnd, false)
-    event.stopPropagation()
   }
-  const onCloseWindow = event => {
-    closeWindow(windowManagerContext, hWnd)
+
+  const onMaximizeWindow = event => {
     event.stopPropagation()
+    setMaximized(isMax => !isMax)
+  }
+
+  const onCloseWindow = event => {
+    event.stopPropagation()
+    closeWindow(windowManagerContext, hWnd)
   }
 
   return (
@@ -94,6 +117,12 @@ const makeTitleBar = (title, backColor, foreColor, setPosition, hWnd) => {
               style={buttonStyle}
               onClick={onHideWindow}>
         _
+      </Button>
+      <Button foreColor={foreColor}
+              backColor={backColor}
+              style={buttonStyle}
+              onClick={onMaximizeWindow}>
+        { maximized ? 'V' : '^' }
       </Button>
       <Button foreColor={foreColor}
               backColor={backColor}
@@ -118,27 +147,29 @@ const Window = ({
 }) => {
   const classes = 'chui-window'
 
+  const [maximized, setMaximized] = useState(false)
   const [position, setPosition] = useState(pos || { x: '100px', y: '100px' })
 
   const windowStyle = {
     border: '1px solid',
     position: 'fixed',
-    left: position.x,
-    top: position.y,
+    left: maximized ? '0' : position.x,
+    top: maximized ? '0' : position.y,
     ...style,
-    ...makeColorStyle(foreColor, backColor)
+    ...makeColorStyle(foreColor, backColor),
+    width: maximized ? 'calc(100vw - 4px)' : style.width,
+    height: maximized ? 'calc(100vh - 4px)' : style.height
   }
 
   const windowManagerContext = useContext(WindowManagerContext)
   const onActivateWindow = () => activateWindow(windowManagerContext, hWnd)
 
   return (
-    <div key={`chui-window-${hWnd}`}
-         className={classes}
+    <div className={classes}
          style={windowStyle}
          onClick={onActivateWindow}
          {...rest}>
-      { makeTitleBar(title, backColor, foreColor, setPosition, hWnd) }
+      { makeTitleBar(hWnd, title, backColor, foreColor, setPosition, maximized, setMaximized) }
       <div style={{ padding: '0.5em' }}>
         { children }
       </div>
