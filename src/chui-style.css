@@ -154,4 +154,5 @@ span {
 
 .chui-window {
     border: 1px solid;
+    box-shadow: 5px 5px gray;
 }
