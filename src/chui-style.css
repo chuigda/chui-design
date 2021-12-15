@@ -1,11 +1,18 @@
 @font-face {
     font-family: 'vga';
     src: url("./chui-res/vga.ttf");
+    unicode-range: U+00-FF, U+980-9FF;
+}
+
+@font-face {
+    font-family: 'ipix';
+    src: url("./chui-res/ipix.ttf");
 }
 
 * {
-    font-family: vga, monospace;
+    font-family: vga, ipix, 'SimSun', monospace;
     font-size: 16px;
+    filter: contrast(1);
     cursor: url("./chui-res/point.cur"), pointer;
     font-smooth: never;
     -webkit-font-smoothing: none;
