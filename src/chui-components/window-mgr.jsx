@@ -11,7 +11,6 @@ export const WindowManager = ({ children }) => {
   const [windowList, setWindowList] = useState({
     list: []
   })
-
   const store = { windowList, setWindowList }
 
   return (

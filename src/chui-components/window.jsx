@@ -1,4 +1,9 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import PropTypes from 'prop-types'
 
 import { makeColorStyle } from '../chui-config/color'
@@ -11,7 +16,16 @@ import {
   setWindowVisibility
 } from './window-mgr.jsx'
 
-const makeTitleBar = (hWnd, title, backColor, foreColor, setPosition, maximized, setMaximized) => {
+const makeTitleBar = (
+  windowRef,
+  hWnd,
+  title,
+  backColor,
+  foreColor,
+  position,
+  maximized,
+  setMaximized
+) => {
   const { color, backgroundColor } = makeColorStyle(foreColor, backColor)
 
   const titleBarStyle = {
@@ -83,7 +97,13 @@ const makeTitleBar = (hWnd, title, backColor, foreColor, setPosition, maximized,
     if (y < 0) {
       y = 0
     }
-    setPosition({ x, y })
+
+    // eslint-disable-next-line no-param-reassign
+    position.current = { x, y }
+    // eslint-disable-next-line no-param-reassign
+    windowRef.current.style.left = `${x}px`
+    // eslint-disable-next-line no-param-reassign
+    windowRef.current.style.top = `${y}px`
   }
 
   const onHideWindow = event => {
@@ -145,16 +165,18 @@ const Window = ({
   style,
   ...rest
 }) => {
+  useEffect(() => console.log(`re-generating vdom for Window ${hWnd}`))
+
   const classes = 'chui-window'
 
   const [maximized, setMaximized] = useState(false)
-  const [position, setPosition] = useState(pos || { x: '100px', y: '100px' })
+  const position = useRef(pos || { x: 100, y: 100 })
 
   const windowStyle = {
     border: '1px solid',
     position: 'fixed',
-    left: maximized ? '0' : position.x,
-    top: maximized ? '0' : position.y,
+    left: maximized ? '0' : position.current.x,
+    top: maximized ? '0' : position.current.y,
     ...style,
     ...makeColorStyle(foreColor, backColor),
     width: maximized ? 'calc(100vw - 4px)' : style.width,
@@ -164,12 +186,26 @@ const Window = ({
   const windowManagerContext = useContext(WindowManagerContext)
   const onActivateWindow = () => activateWindow(windowManagerContext, hWnd)
 
+  const windowRef = useRef()
+
   return (
-    <div className={classes}
+    <div ref={windowRef}
+         className={classes}
          style={windowStyle}
          onClick={onActivateWindow}
          {...rest}>
-      { makeTitleBar(hWnd, title, backColor, foreColor, setPosition, maximized, setMaximized) }
+      {
+        makeTitleBar(
+          windowRef,
+          hWnd,
+          title,
+          backColor,
+          foreColor,
+          position,
+          maximized,
+          setMaximized
+        )
+      }
       <div style={{ padding: '0.5em' }}>
         { children }
       </div>
