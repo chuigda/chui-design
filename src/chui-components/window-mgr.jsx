@@ -44,10 +44,10 @@ WindowManager.propTypes = {
 
 export const createWindow = (windowManagerContext, hWnd, children, restAttr) => {
   const actualHWnd = hWnd
-    || `hWnd-${Math.round(Math.random() * 114514)}`
-      + `-${Math.round(Math.random() * 1919810)}`
-      + `-${Math.round(Math.random() * 1024)}`
-      + `-${Math.round(Math.random() * 3399)}`
+    || `W-${Math.round(Math.random() * 1024)}`
+      + `-${Math.round(Math.random() * 2048)}`
+      + `-${Math.round(Math.random() * 3072)}`
+      + `-${Math.round(Math.random() * 4096)}`
 
   const newWindow = (
     <Window hWnd={actualHWnd} {...restAttr}>

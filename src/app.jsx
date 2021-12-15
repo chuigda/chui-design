@@ -115,8 +115,7 @@ const App = () => {
                       foreColor="blue">
           {blogWindowContent}
         </CreateWindow>
-        <CreateWindow title="Yet another window"
-                      foreColor="blue"
+        <CreateWindow foreColor="blue"
                       style={{ width: '400px' }}>
           <span>Another window</span>
         </CreateWindow>

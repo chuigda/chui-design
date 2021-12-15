@@ -110,7 +110,7 @@ const makeTitleBar = (hWnd, title, backColor, foreColor, setPosition, maximized,
            onDrag={onDrag}
            className="chui-cursor-move"
            style={titleStyle}>
-        {title}
+        {title || ' * Untitled * '}
       </div>
       <Button foreColor={foreColor}
               backColor={backColor}
