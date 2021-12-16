@@ -36,7 +36,7 @@ export const WindowManager = ({ children }) => {
                  position: 'absolute',
                  left: '0',
                  top: '0',
-                 userSelect: 'none'
+                 userSelect: windowObject.visible ? undefined : 'none'
                }}>
             { windowObject.vdom }
           </div>
@@ -52,7 +52,7 @@ WindowManager.propTypes = {
   children: PropTypes.any
 }
 
-export const createWindow = (windowManagerContext, hWnd, children, restAttr) => {
+export const createWindow = (windowManagerContext, hWnd, title, children, restAttr) => {
   const { maxHWnd, setWindowList } = windowManagerContext
 
   const [actualHWnd, creationOrder] = (() => {
@@ -65,7 +65,7 @@ export const createWindow = (windowManagerContext, hWnd, children, restAttr) => 
   })()
 
   const newWindow = (
-    <Window hWnd={actualHWnd} {...restAttr}>
+    <Window hWnd={actualHWnd} title={title} {...restAttr}>
       {children}
     </Window>
   )
@@ -166,11 +166,13 @@ export const setWindowVisibility = (windowManagerContext, hWnd, visible) => {
   }
 }
 
-export const CreateWindow = ({ hWnd, children, ...rest }) => {
+export const CreateWindow = ({
+  hWnd, title, children, ...rest
+}) => {
   const windowManagerContext = useContext(WindowManagerContext)
 
   useEffect(() => {
-    const actualHWnd = createWindow(windowManagerContext, hWnd, children, rest)
+    const actualHWnd = createWindow(windowManagerContext, title, hWnd, children, rest)
     log.info(`created window by using component 'CreateWindow', hWnd = ${actualHWnd}`)
   }, [])
 
@@ -179,5 +181,6 @@ export const CreateWindow = ({ hWnd, children, ...rest }) => {
 
 CreateWindow.propTypes = {
   hWnd: PropTypes.string,
+  title: PropTypes.string.isRequired,
   children: PropTypes.any
 }

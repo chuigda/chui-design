@@ -177,8 +177,10 @@ const Window = ({
     top: maximized ? '0' : position.current.y,
     ...style,
     ...makeColorStyle(foreColor, backColor),
-    width: maximized ? 'calc(100vw - 4px)' : style.width,
-    height: maximized ? 'calc(100vh - 36px)' : style.height
+    width: maximized ? 'calc(100vw - 2px)' : style.width,
+    height: maximized ? 'calc(100vh - 36px)' : style.height,
+    display: 'flex',
+    flexDirection: 'column'
   }
 
   const windowManagerContext = useContext(WindowManagerContext)
@@ -204,7 +206,13 @@ const Window = ({
           setMaximized
         )
       }
-      <div style={{ padding: '0.5em' }}>
+      <div style={{
+        padding: '4px',
+        width: '100%',
+        height: '1%',
+        flexBasis: 'max-content',
+        boxSizing: 'border-box'
+      }}>
         { children }
       </div>
     </div>

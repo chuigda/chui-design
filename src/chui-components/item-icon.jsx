@@ -25,7 +25,7 @@ const ItemIcon = ({
         height: iconSize,
         backgroundImage: `url(${icon})`,
         backgroundSize: iconSize
-      }} onDoubleClick={onUseItem} />
+      }} />
       <div className="chui-item-icon-text" style={{
         marginTop: '4px',
         height: '2em',
