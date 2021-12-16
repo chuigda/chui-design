@@ -3,7 +3,7 @@ author: Chuigda<icey@icey.tech>
 
 前世代前端组件库
 
-image::irrelevant/开幕雷击.png[开幕雷击]
+image::irrelevant/开幕雷击3.png[开幕雷击]
 
 == 介绍
 
