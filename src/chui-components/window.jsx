@@ -37,6 +37,7 @@ const makeTitleBar = (
     height: 'calc(1em + 7px)',
     borderBottom: `1px solid ${color}`,
     background: color,
+    flexGrow: 0
   }
 
   const titleStyle = {
@@ -178,9 +179,7 @@ const Window = ({
     ...style,
     ...makeColorStyle(foreColor, backColor),
     width: maximized ? 'calc(100vw - 2px)' : style.width,
-    height: maximized ? 'calc(100vh - 36px)' : style.height,
-    display: 'flex',
-    flexDirection: 'column'
+    height: maximized ? 'calc(100vh - 36px)' : style.height
   }
 
   const windowManagerContext = useContext(WindowManagerContext)
@@ -207,11 +206,9 @@ const Window = ({
         )
       }
       <div style={{
-        padding: '4px',
         width: '100%',
-        height: '1%',
-        flexBasis: 'max-content',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        height: 'calc(100% - 9px - 1em)'
       }}>
         { children }
       </div>
