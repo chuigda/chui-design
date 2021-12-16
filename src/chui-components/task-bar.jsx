@@ -5,6 +5,8 @@ import { setWindowVisibility, WindowManagerContext } from './window-mgr.jsx'
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
 
+import showDesktopImageUrl from '../chui-res/icons/desktop_old-3.png'
+
 const TaskBar = ({
   foreColor,
   backColor,
@@ -16,8 +18,6 @@ const TaskBar = ({
   const sorted = [...windowList.list].sort(
     (windowObject1, windowObject2) => windowObject1.creationOrder - windowObject2.creationOrder
   )
-
-  console.log(sorted)
 
   const taskBarStyle = {
     border: '1px solid',
@@ -45,6 +45,13 @@ const TaskBar = ({
 
   return (
     <div style={taskBarStyle}>
+      <img src={showDesktopImageUrl}
+           alt="show desktop"
+           style={{ userSelect: 'none' }}
+           onClick={() => windowList.list.forEach(
+             windowObject => setWindowVisibility(windowManagerContext, windowObject.hWnd, false)
+           )}
+      />
       {
         sorted.map(windowObject => (
           <Button key={`chui-task-bar-button-${windowObject.hWnd}`}

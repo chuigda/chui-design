@@ -15,6 +15,7 @@ import {
   activateWindow,
   setWindowVisibility
 } from './window-mgr.jsx'
+import log from '../chui-utils/log'
 
 const makeTitleBar = (
   windowRef,
@@ -142,7 +143,7 @@ const makeTitleBar = (
               backColor={backColor}
               style={buttonStyle}
               onClick={onMaximizeWindow}>
-        { maximized ? 'V' : '^' }
+        { maximized ? '-' : '+' }
       </Button>
       <Button foreColor={foreColor}
               backColor={backColor}
@@ -165,7 +166,7 @@ const Window = ({
   style,
   ...rest
 }) => {
-  useEffect(() => console.log(`re-generating vdom for Window ${hWnd}`))
+  useEffect(() => log.debug(`re-generating vdom for Window ${hWnd}`))
 
   const classes = 'chui-window'
 
@@ -180,7 +181,7 @@ const Window = ({
     ...style,
     ...makeColorStyle(foreColor, backColor),
     width: maximized ? 'calc(100vw - 4px)' : style.width,
-    height: maximized ? 'calc(100vh - 4px)' : style.height
+    height: maximized ? 'calc(100vh - 36px)' : style.height
   }
 
   const windowManagerContext = useContext(WindowManagerContext)
