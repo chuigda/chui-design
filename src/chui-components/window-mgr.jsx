@@ -1,4 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import PropTypes from 'prop-types'
 
 // eslint-disable-next-line import/no-cycle
@@ -11,7 +16,12 @@ export const WindowManager = ({ children }) => {
   const [windowList, setWindowList] = useState({
     list: []
   })
-  const store = { windowList, setWindowList }
+  const maxHWnd = useRef(1000)
+  const store = {
+    windowList,
+    setWindowList,
+    maxHWnd
+  }
 
   return (
     <WindowManagerContext.Provider value={store}>
@@ -26,7 +36,7 @@ export const WindowManager = ({ children }) => {
                  left: '0',
                  top: '0'
                }}>
-            {windowObject.vdom}
+            { windowObject.vdom }
           </div>
         ))
       }
@@ -42,11 +52,16 @@ WindowManager.propTypes = {
 }
 
 export const createWindow = (windowManagerContext, hWnd, children, restAttr) => {
-  const actualHWnd = hWnd
-    || `W-${Math.round(Math.random() * 1024)}`
-      + `-${Math.round(Math.random() * 2048)}`
-      + `-${Math.round(Math.random() * 3072)}`
-      + `-${Math.round(Math.random() * 4096)}`
+  const { maxHWnd, setWindowList } = windowManagerContext
+
+  const [actualHWnd, creationOrder] = (() => {
+    maxHWnd.current += 1
+    if (hWnd) {
+      return [hWnd, maxHWnd.current]
+    } else {
+      return [`W-${maxHWnd.current}-${Math.round(Math.random() * 8192)}`, maxHWnd.current]
+    }
+  })()
 
   const newWindow = (
     <Window hWnd={actualHWnd} {...restAttr}>
@@ -54,11 +69,11 @@ export const createWindow = (windowManagerContext, hWnd, children, restAttr) => 
     </Window>
   )
 
-  const { setWindowList } = windowManagerContext
   setWindowList(
     windowList => ({
       list: windowList.list.concat([
         {
+          creationOrder,
           hWnd: actualHWnd,
           vdom: newWindow,
           visible: true
@@ -67,12 +82,12 @@ export const createWindow = (windowManagerContext, hWnd, children, restAttr) => 
     })
   )
 
-  log.info(`[chui-design] created window by using API 'createWindow', hWnd = ${actualHWnd}`)
+  log.info(`created window by using API 'createWindow', hWnd = ${actualHWnd}`)
   return actualHWnd
 }
 
 export const closeWindow = (windowManagerContext, hWnd) => {
-  log.info(`[chui-design] closing window by using API 'closeWindow', hWnd = ${hWnd}`)
+  log.info(`closing window by using API 'closeWindow', hWnd = ${hWnd}`)
 
   if (!windowManagerContext) {
     return
@@ -88,7 +103,7 @@ export const closeWindow = (windowManagerContext, hWnd) => {
 }
 
 export const activateWindow = (windowManagerContext, hWnd) => {
-  log.info(`[chui-design] activating window by using API 'activateWindow', hWnd = ${hWnd}`)
+  log.info(`activating window by using API 'activateWindow', hWnd = ${hWnd}`)
 
   if (!windowManagerContext) {
     return
@@ -125,8 +140,8 @@ export const setWindowVisibility = (windowManagerContext, hWnd, visible) => {
         list: oldWindowList.list.map(windowObject => {
           if (windowObject.hWnd === hWnd) {
             return {
+              ...oldWindowList.list.find(windowObject => windowObject.hWnd === hWnd),
               hWnd,
-              vdom: windowObject.vdom,
               visible
             }
           } else {
@@ -141,8 +156,8 @@ export const setWindowVisibility = (windowManagerContext, hWnd, visible) => {
         list: oldWindowList.list
           .filter(windowObject => windowObject.hWnd !== hWnd)
           .concat([{
+            ...oldWindowList.list.find(windowObject => windowObject.hWnd === hWnd),
             hWnd,
-            vdom: oldWindowList.list.find(windowObject => windowObject.hWnd === hWnd).vdom,
             visible
           }])
       })
@@ -155,7 +170,7 @@ export const CreateWindow = ({ hWnd, children, ...rest }) => {
 
   useEffect(() => {
     const actualHWnd = createWindow(windowManagerContext, hWnd, children, rest)
-    log.info(`[chui-design info] created window by using component 'CreateWindow', hWnd = ${actualHWnd}`)
+    log.info(`created window by using component 'CreateWindow', hWnd = ${actualHWnd}`)
   }, [])
 
   return <></>

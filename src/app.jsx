@@ -9,6 +9,7 @@ import TextArea from './chui-components/text-area.jsx'
 import ScrollArea from './chui-components/scroll-area.jsx'
 
 import { getGlobalColor } from './chui-config/color'
+import TaskBar from './chui-components/task-bar'
 
 const allowDrop = event => {
   event.preventDefault()
@@ -36,11 +37,10 @@ const blogWindowContent = (
       <span>我真的好羡慕那些 不用学 也可以满绩的 我真的不一样 我真的是 学到自闭 没有办法 毕竟水平不行</span><br/>
       <span>我看不到历史的进程 我觉得我也快被淘汰了</span><br/>
       <span>唉 想想自己已经荒废了这么多年 我还能做什么呢</span><br/>
-      <span>我觉得我对我自己有多菜，一直有比较清晰的认识</span><br/>
+      <span>我觉得我对我自己有多菜 一直有比较清晰的认识</span><br/>
       <span>我的脑子就是知识的筛子 以至于我什么都不会</span><br/>
       <span>我太菜了 可没人觉得我菜 这就很让人苦恼</span><br/>
-      <span>是我觉得自己太菜了 所以要把菜带给更多的人 这样大家就知道 菜也没关系 总有更菜的
-            Chuigda 给你们垫底</span><br/>
+      <span>是我觉得自己太菜了 所以要把菜带给更多的人 这样大家就知道 菜也没关系 总有更菜的 Chuigda 给你们垫底</span><br/>
       <span>唉 只可惜我没有抓住机会 去了一个大佬太多的组 发现自己根本没什么水平 被打回原形好好学习混吃等死</span><br/>
       <span>突然觉得自己好失败 大学四年一晃而过 我卷不过别人 做不了嗑盐 写不动程序 听不懂课 我仿佛是个废物</span><br/>
       <span>我太菜了 在简历里只敢写自己有 basic understanding 和 beginner’s experience</span><br/>
@@ -115,10 +115,12 @@ const App = () => {
                       foreColor="blue">
           {blogWindowContent}
         </CreateWindow>
-        <CreateWindow foreColor="blue"
+        <CreateWindow title="Untitled"
+                      foreColor="blue"
                       style={{ width: '400px' }}>
           <span>Another window</span>
         </CreateWindow>
+        <TaskBar backColor="htmlGray" activeBackColor="white" activeForeColor="black"/>
       </WindowManager>
     </div>
   )

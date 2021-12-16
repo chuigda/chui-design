@@ -16,6 +16,7 @@ const ANSIColorPlate = {
   white: 'rgb(255, 255, 255)',
 
   // not standard ANSI color
+  htmlGray: 'gray',
   orange: 'rgb(255, 127, 0)'
 }
 

@@ -17,7 +17,7 @@ const Button = ({
 
   return (
     <div className="chui-button-div" style={buttonStyle}>
-      <button className={classes} style={buttonStyle} {...rest} />
+      <button className={classes} style={{ width: '100%', ...buttonStyle}} {...rest} />
     </div>
   )
 }
