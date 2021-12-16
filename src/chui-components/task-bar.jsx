@@ -32,6 +32,7 @@ const TaskBar = ({
     gap: '0.6em',
     paddingLeft: '12px',
     paddingRight: '12px',
+    zIndex: 1145141919810,
     ...makeColorStyle(foreColor, backColor)
   }
 

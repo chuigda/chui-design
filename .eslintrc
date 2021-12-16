@@ -10,6 +10,7 @@
       "browser": true
     },
     "rules": {
+      "no-shadow": "off",
       "no-console": "off",
       "semi": ["error", "never"],
       "no-restricted-syntax": "off",

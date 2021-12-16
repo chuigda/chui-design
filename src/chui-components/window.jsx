@@ -112,10 +112,7 @@ const makeTitleBar = (
     setWindowVisibility(windowManagerContext, hWnd, false)
   }
 
-  const onMaximizeWindow = event => {
-    event.stopPropagation()
-    setMaximized(isMax => !isMax)
-  }
+  const onMaximizeWindow = () => setMaximized(isMax => !isMax)
 
   const onCloseWindow = event => {
     event.stopPropagation()
@@ -131,7 +128,7 @@ const makeTitleBar = (
            onDrag={onDrag}
            className="chui-cursor-move"
            style={titleStyle}>
-        {title || ' * Untitled * '}
+        {title}
       </div>
       <Button foreColor={foreColor}
               backColor={backColor}
@@ -216,12 +213,12 @@ const Window = ({
 
 Window.propTypes = {
   hWnd: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   pos: PropTypes.object,
   windowApi: PropTypes.object,
   visible: PropTypes.bool,
   backColor: PropTypes.string,
   foreColor: PropTypes.string,
-  title: PropTypes.string,
   children: PropTypes.any,
   style: PropTypes.object
 }

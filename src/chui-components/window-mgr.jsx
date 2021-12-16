@@ -25,6 +25,7 @@ export const WindowManager = ({ children }) => {
 
   return (
     <WindowManagerContext.Provider value={store}>
+      { children }
       {
         windowList.list.map(windowObject => (
           <div key={`chui-window-${windowObject.hWnd}`}
@@ -34,13 +35,13 @@ export const WindowManager = ({ children }) => {
                  height: '0',
                  position: 'absolute',
                  left: '0',
-                 top: '0'
+                 top: '0',
+                 userSelect: 'none'
                }}>
             { windowObject.vdom }
           </div>
         ))
       }
-      { children }
     </WindowManagerContext.Provider>
   )
 }
