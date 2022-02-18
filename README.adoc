@@ -20,7 +20,8 @@ image::irrelevant/开幕雷击3.png[开幕雷击]
  - link:https://github.com/chuigda/chui-design[Chui Design of React] (官方实现)
 
 === 谁在使用
-没有人。之后我可能会给自己博客系统用。
+__重大消息__: 本框架已经由 link:https://github.com/chuigda/Bailan-Box[NA摆烂盒子] 使用！
+之后我可能会给自己博客系统用。
 
 === 社区评价
 [.line-through]#因为没人使用，所以没有评价。# 虽然没人用过，但风格方面的评论还是有的。
