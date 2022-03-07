@@ -1,6 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { makeColorStyle } from '../chui-config/color'
 
 const ScrollArea = ({
@@ -14,13 +11,6 @@ const ScrollArea = ({
   }
 
   return <div className="chui-scroll-area" style={scrollStyle} {...rest} />
-}
-
-ScrollArea.propTypes = {
-  backColor: PropTypes.string,
-  foreColor: PropTypes.string,
-  scroll: PropTypes.string.isRequired,
-  style: PropTypes.object
 }
 
 export default ScrollArea

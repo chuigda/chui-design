@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'fre'
 
 import './chui-style.css'
 import { createWindow, WindowManager } from './chui-components/window-mgr.jsx'

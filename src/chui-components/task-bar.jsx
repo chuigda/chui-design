@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-
 import { setWindowVisibility, WindowManagerContext } from './window-mgr.jsx'
 import { makeColorStyle } from '../chui-config/color'
 import Button from './button.jsx'
 
 import showDesktopImageUrl from '../chui-res/icons/desktop_old-3.png'
+import { useContext } from '../chui-utils/fre-plus'
 
 const TaskBar = ({
   foreColor,
@@ -70,13 +68,6 @@ const TaskBar = ({
       }
     </div>
   )
-}
-
-TaskBar.propTypes = {
-  foreColor: PropTypes.string,
-  backColor: PropTypes.string.isRequired,
-  activeForeColor: PropTypes.string,
-  activeBackColor: PropTypes.string.isRequired
 }
 
 export default TaskBar

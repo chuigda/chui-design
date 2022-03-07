@@ -1,12 +1,7 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useRef, useState } from 'fre'
 
 import { makeColorStyle } from '../chui-config/color'
+import { useContext } from '../chui-utils/fre-plus'
 import Button from './button.jsx'
 // eslint-disable-next-line import/no-cycle
 import {
@@ -214,18 +209,6 @@ const Window = ({
       </div>
     </div>
   )
-}
-
-Window.propTypes = {
-  hWnd: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  pos: PropTypes.object,
-  windowApi: PropTypes.object,
-  visible: PropTypes.bool,
-  backColor: PropTypes.string,
-  foreColor: PropTypes.string,
-  children: PropTypes.any,
-  style: PropTypes.object
 }
 
 export default Window

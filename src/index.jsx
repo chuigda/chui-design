@@ -1,14 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'fre'
 import App from './app.jsx'
 
 import setupMozillaHack from './chui-config/mouse'
 
 setupMozillaHack()
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+render(
+  <App />,
   document.getElementById('root')
 )

@@ -1,6 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { makeColorStyle } from '../chui-config/color'
 
 const LineEdit = ({
@@ -14,13 +11,6 @@ const LineEdit = ({
            style={editStyle} {...rest}
     />
   )
-}
-
-LineEdit.propTypes = {
-  backColor: PropTypes.string,
-  foreColor: PropTypes.string,
-  password: PropTypes.any,
-  style: PropTypes.object
 }
 
 export default LineEdit

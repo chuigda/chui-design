@@ -1,7 +1,5 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
-
 import { WindowManagerContext } from './window-mgr.jsx'
+import { useContext } from '../chui-utils/fre-plus'
 
 const ItemIcon = ({
   icon,
@@ -11,9 +9,15 @@ const ItemIcon = ({
 }) => {
   const windowManagerContext = useContext(WindowManagerContext)
 
+  const onDoubleClick = event => {
+    if (onUseItem) {
+      onUseItem(windowManagerContext, event)
+    }
+  }
+
   return (
     <div className="chui-item-icon"
-         onDoubleClick={event => (onUseItem ? onUseItem(windowManagerContext, event) : false)}
+         onDoubleClick={onDoubleClick}
          style={{
            minWidth: `calc(${iconSize}px + 2em)`,
            maxWidth: `calc(${iconSize}px + 2em)`,
@@ -36,13 +40,6 @@ const ItemIcon = ({
       </div>
     </div>
   )
-}
-
-ItemIcon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  iconSize: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  onUseItem: PropTypes.func
 }
 
 export default ItemIcon

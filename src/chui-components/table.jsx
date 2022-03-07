@@ -1,6 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
 import { makeColorStyle } from '../chui-config/color'
 
 const Table = ({
@@ -43,16 +40,6 @@ const Table = ({
       </tbody>
     </table>
   )
-}
-
-Table.propTypes = {
-  key: PropTypes.string,
-  backColor: PropTypes.string,
-  foreColor: PropTypes.string,
-  busy: PropTypes.any,
-  title: PropTypes.arrayOf(PropTypes.string),
-  rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-  style: PropTypes.object
 }
 
 export default Table

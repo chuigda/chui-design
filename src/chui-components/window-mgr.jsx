@@ -1,16 +1,15 @@
-import React, {
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
-import PropTypes from 'prop-types'
+import { useEffect, useRef, useState } from 'fre'
 
 // eslint-disable-next-line import/no-cycle
 import Window from './window.jsx'
+import { createContext, useContext } from '../chui-utils/fre-plus'
 import log from '../chui-utils/log'
 
-export const WindowManagerContext = React.createContext(null)
+export const WindowManagerContext = createContext({
+  windowList: { list: [] },
+  setWindowList: () => log.warn('invoking placeholder setWindowList'),
+  maxHWnd: -1
+})
 
 export const WindowManager = ({ children }) => {
   const [windowList, setWindowList] = useState({
@@ -44,12 +43,6 @@ export const WindowManager = ({ children }) => {
       }
     </WindowManagerContext.Provider>
   )
-}
-
-WindowManager.propTypes = {
-  windowList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setWindowList: PropTypes.func.isRequired,
-  children: PropTypes.any
 }
 
 export const createWindow = (windowManagerContext, hWnd, title, children, restAttr) => {
@@ -177,10 +170,4 @@ export const CreateWindow = ({
   }, [])
 
   return <></>
-}
-
-CreateWindow.propTypes = {
-  hWnd: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  children: PropTypes.any
 }
