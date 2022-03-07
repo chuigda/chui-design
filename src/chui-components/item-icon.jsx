@@ -17,7 +17,7 @@ const ItemIcon = ({
 
   return (
     <div className="chui-item-icon"
-         onDoubleClick={onDoubleClick}
+         onClick={onDoubleClick}
          style={{
            minWidth: `calc(${iconSize}px + 2em)`,
            maxWidth: `calc(${iconSize}px + 2em)`,
@@ -25,10 +25,10 @@ const ItemIcon = ({
          }}
     >
       <div className="chui-item-icon-icon" style={{
-        width: iconSize,
-        height: iconSize,
+        width: `${iconSize}px`,
+        height: `${iconSize}px`,
         backgroundImage: `url(${icon})`,
-        backgroundSize: iconSize
+        backgroundSize: `${iconSize}px`
       }} />
       <div className="chui-item-icon-text" style={{
         marginTop: '4px',
